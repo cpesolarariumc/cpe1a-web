@@ -13,7 +13,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    color: rgb(29, 34, 106);
+    color: white;
     min-height: 100vh;
     /* NGL-style Gradient */
     background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #36656f);
@@ -231,4 +231,5 @@ input {
     height: 100%;
     object-fit: cover;
 }
+
 
