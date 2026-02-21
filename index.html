@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPE 1-A | Portal Hub</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" type="image/jpg" href="images/1Alogo.png">
+</head>
+<body>
+    <div class="container">
+        <header class="profile-section">
+            <a href="https://www.facebook.com/profile.php?id=61580406668824" target="_blank" class="avatar-link">
+                <div class="avatar-container portal-logo">
+                    <img src="images/1A.jpg" alt="CPE 1-A Logo">
+                </div>
+            </a>
+            <h1 class="username">CPE 1-A 25' 26</h1>
+            <p style="opacity: 0.7; font-size: 0.9rem;">Bridging the Realms of Engineering</p>
+        </header>
+
+        <nav class="nav-grid">
+            <a href="ngl/cpe.ngl.html" class="hub-card">
+                <span class="hub-icon">💌</span>
+                <h3>Anonymous NGL</h3>
+                <p>Send secret messages to the class.</p>
+            </a>
+
+            <a href="/quotes/quotes.html" class="hub-card">
+                <span class="hub-icon">📜</span>
+                <h3>Fortune & Quotes</h3>
+                <p>Wisdom to bridge the barriers of thought.</p>
+            </a>
+
+            <a href="resources.html" class="hub-card">
+                <span class="hub-icon">📚</span>
+                <h3>Resource Hub</h3>
+                <p>Shared notes and tools.</p>
+            </a>
+
+            <a href="/yearbook/yearbook.html" class="hub-card">
+                <span class="hub-icon">🎓</span>
+                <h3>Digital Yearbook</h3>
+                <p>Profiles of our batchmates.</p>
+            </a>
+
+            <a href="/memories/memories.html" class="hub-card">
+                <span class="hub-icon">📸</span>
+                <h3>Memories</h3>
+                <p>Capturing every event.</p>
+            </a>
+        </nav>
+
+        <div class="quote-container glass-card">
+            <div id="quote-display">
+                <p id="quote-text">"True power is not owned; it is shared through Absolute Accord."</p>
+                <span id="quote-author">— CPE 1-A Wisdom</span>
+            </div>
+        </div>
+
+        <footer style="margin-top: 40px; opacity: 0.5; font-size: 0.75rem;">
+            &copy; 2026 CPE 1-A | Batch 2025-2026 | All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        // List of wisdom for the realm
+        const quotes = [
+            { text: "Engineering is the art of making the impossible achievable.", author: "Batch 2026" },
+            { text: "The probability of Unity is 1 in 90^1837!!—unless we act as one.", author: "The Barrier Theory" },
+            { text: "Absolute Accord is the key to dissolving the firewall of greed.", author: "CPE 1-A" },
+            { text: "In the realm of imagination, 1 + 1 can equal anything we dream.", author: "Higher Realm" },
+            { text: "Code is temporary, but the logic of Unity is eternal.", author: "The Discoverer" },
+            { text: "Contradiction maintains the barrier; cooperation shatters it.", author: "The Visionary" },
+            { text: "Success is a superposition—it exists when we all agree it does.", author: "Quantum Unity" }
+        ];
+
+        function updateQuote() {
+            const quoteText = document.getElementById('quote-text');
+            const quoteAuthor = document.getElementById('quote-author');
+            
+            // Fade out
+            quoteText.style.opacity = 0;
+            quoteAuthor.style.opacity = 0;
+
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                quoteText.innerText = `"${quotes[randomIndex].text}"`;
+                quoteAuthor.innerText = `— ${quotes[randomIndex].author}`;
+                
+                // Fade in
+                quoteText.style.opacity = 1;
+                quoteAuthor.style.opacity = 1;
+            }, 500);
+        }
+
+        // Set the timer to 1 minute (60,000 milliseconds)
+        setInterval(updateQuote, 60000);
+    </script>
+</body>
+</html>
