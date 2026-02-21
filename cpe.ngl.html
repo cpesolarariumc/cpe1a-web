@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send a Message | CPE 1-A</title> 
+     <link rel="icon" type="image/jpg" href="../images/1Alogo.png">
+    <link rel="stylesheet" href="../css/style.css">   
+</head>
+<body>
+    <div class="container">
+        <div class="profile-section">
+            <a href="https://www.facebook.com/profile.php?id=61580406668824" target="_blank" class="avatar-link">
+                <div class="avatar-container">
+                    <img src="../images/1A.jpg" alt="CPE 1-A Profile">
+                </div>
+            </a>
+            <div class="username">CPE 1-A</div>
+        </div>
+
+        <div id="input-container" class="glass-card">
+            <p style="opacity: 0.8; font-size: 1rem; margin-bottom: 20px; font-weight: 600;">
+                send an anonymous message to us!
+            </p>
+            
+            <form id="send-form">
+                <textarea id="msg" placeholder="type your secret..." required maxlength="300"></textarea>
+                <button type="submit" id="submit-btn" class="send-btn">Send Anonymous</button>
+            </form>
+        </div>
+
+        <div id="success-container" class="glass-card" style="display: none;">
+        <div style="font-size: 3.5rem; margin-bottom: 15px;">✨</div>
+        <h2 style="color: var(--accent);">Message Sent!</h2>
+        <p>Your message has been delivered to the CPE 1-A realm.</p>
+    
+        <a href="../index.html" class="send-btn" style="text-decoration: none; margin-top: 20px; display: inline-block;">
+    Return to Hub
+</a>
+    </div>
+
+    <script type="module">
+        import { firebaseConfig } from '../scripts/config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const sendForm = document.getElementById('send-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const inputContainer = document.getElementById('input-container');
+        const successContainer = document.getElementById('success-container');
+
+        sendForm.onsubmit = async (e) => {
+            e.preventDefault();
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+            
+            const text = document.getElementById('msg').value;
+            
+            try {
+                await addDoc(collection(db, "messages"), { 
+                    content: text, 
+                    timestamp: serverTimestamp() 
+                });
+                inputContainer.style.display = 'none';
+                successContainer.style.display = 'block';
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Failed to send. Please check your internet.");
+                submitBtn.innerText = "Send Anonymous";
+                submitBtn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>
