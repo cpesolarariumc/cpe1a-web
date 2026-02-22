@@ -7,6 +7,40 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="icon" type="image/jpg" href="images/1Alogo.png">
+    <style>
+        /* Extra centering fixes for Desktop */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers container horizontally */
+            justify-content: flex-start; /* Starts from top */
+            padding-top: 40px;
+        }
+        .container {
+            width: 95%;
+            max-width: 500px; /* Slightly wider for better desktop look */
+            margin: 0 auto;   /* Centers everything */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-section, .quote-container, .nav-grid {
+            width: 100%;      /* Ensures they take full container width */
+            text-align: center;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default mobile */
+            gap: 15px;
+            width: 100%;
+        }
+        /* Desktop specific grid adjustment */
+        @media (min-width: 600px) {
+            .nav-grid {
+                grid-template-columns: 1fr 1fr; /* Side by side on desktop */
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,14 +50,14 @@
                     <img src="images/1A.jpg" alt="CPE 1-A Logo">
                 </div>
             </a>
-            <h1 class="username" style="color: white !important;">CPE 1-A 25' 26</h1>
-            <p style="color: white !important; opacity: 0.9; font-size: 0.9rem;">CPE 1-A: Connected Together</p>
+            <h1 class="username" style="color: white !important; margin: 10px 0;">CPE 1-A 25' 26</h1>
+            <p style="color: white !important; opacity: 0.9; font-size: 0.9rem; margin-bottom: 20px;">CPE 1-A: Connected Together</p>
         </header>
 
-        <div class="quote-container glass-card" style="margin: 10px 0 25px 0; padding: 20px; text-align: center;">
-            <div id="quote-display">
-                <p id="quote-text" style="color: white !important; font-size: 1.05rem; transition: opacity 0.5s; font-style: italic;">"Fetching wisdom..."</p>
-                <span id="quote-author" style="color: white !important; opacity: 0.7; font-size: 0.8rem; display: block; margin-top: 8px;"></span>
+        <div class="quote-container glass-card" style="margin: 0 0 25px 0; padding: 25px; width: 100%; border-radius: 20px;">
+            <div id="quote-display" style="width: 100%;">
+                <p id="quote-text" style="color: white !important; font-size: 1.1rem; transition: opacity 0.5s; font-style: italic; margin: 0 auto;">"Fetching wisdom..."</p>
+                <span id="quote-author" style="color: white !important; opacity: 0.7; font-size: 0.85rem; display: block; margin-top: 10px;"></span>
             </div>
         </div>
 
@@ -59,7 +93,7 @@
             </a>
         </nav>
 
-        <footer style="margin-top: 40px; opacity: 0.5; font-size: 0.75rem; color: white !important; text-align: center;">
+        <footer style="margin: 40px 0; opacity: 0.5; font-size: 0.75rem; color: white !important; text-align: center;">
             &copy; 2026 CPE 1-A | Batch 2025-2026 | All rights reserved.
         </footer>
     </div>
@@ -89,7 +123,7 @@
         }
 
         updateQuote();
-        setInterval(updateQuote, 15000);
+        setInterval(updateQuote, 60000);
     </script>
 </body>
 </html>
