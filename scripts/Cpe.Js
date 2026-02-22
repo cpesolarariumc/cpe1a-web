@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// FIREBASE CONFIGURATION (Replace with yours)
+// FIREBASE CONFIGURATION
 const firebaseConfig = {
   apiKey: "AIzaSyBDuMDpKLwAE5FLBS2bzxZb86hl95Ltir8",
   authDomain: "ngldatabase-5abc1.firebaseapp.com",
@@ -112,3 +112,4 @@ function showSingleMessage(id, text) {
     // Set the text
     document.getElementById('focus-text').innerText = text;
 }
+
