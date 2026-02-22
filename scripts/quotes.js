@@ -1,5 +1,5 @@
 // This file contains the list of quotes for the class quotes feature. You can add, remove, or modify quotes as needed.
-import const classQuotes = [
+export const classQuotes = [
     {
         text: "The only way to do great work is to love what you do.",
         author: "Steve Jobs"
@@ -21,4 +21,5 @@ import const classQuotes = [
         author: "Confucius"
     }
 ];
+
 
