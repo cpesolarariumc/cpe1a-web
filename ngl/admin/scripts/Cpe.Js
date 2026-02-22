@@ -111,4 +111,5 @@ function showSingleMessage(id, text) {
     
     // Set the text
     document.getElementById('focus-text').innerText = text;
+
 }
