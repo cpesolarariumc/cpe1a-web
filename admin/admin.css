@@ -1,61 +1,135 @@
-/* --- Admin Specific Styles --- */
-
-/* Ensures the body centers the card perfectly on the screen */
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Vertical center */
-    align-items: center;     /* Horizontal center */
-    min-height: 100vh;
-    margin: 10;
-    padding: 20px;
+/* --- 1. Variables & Base Setup --- */
+:root {
+    --bg-gradient: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #36656f);
+    --glass: rgba(255, 255, 255, 0.1);
+    --border: rgba(255, 255, 255, 0.2);
+    --accent: #1e768a;
+    --periwinkle: rgba(87, 100, 158, 0.95);
 }
 
-/* The Identity Check Card positioning */
-#auth-box {
-    margin-top: 10px; /* Slight nudge for visual balance */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif; 
+}
+
+/* --- 2. Full Background Animation --- */
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    min-height: 100vh;
+    background: #0f0c29; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers vertically */
+    align-items: center;     /* Centers horizontally */
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 400px;
+    height: 100%;
+    z-index: -1;
+    background: var(--bg-gradient);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    will-change: transform; 
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- 3. Containers & Glass Cards --- */
+.container { 
+    width: 95%; 
+    max-width: 400px; 
+    padding: 20px; 
+}
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+/* Positioning fix for Identity Check */
+#auth-box {
+    margin-top: 5vh; 
     animation: fadeIn 0.6s ease-out;
 }
 
-/* Secret Key Input */
-#passphrase {
-    text-align: center;
-    letter-spacing: 4px; 
-    background: rgba(0, 0, 0, 0.3);
+/* --- 4. Profile & UI Elements --- */
+.avatar-container {
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 12px auto;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
+}
+
+.avatar-container img { width: 100%; height: 100%; object-fit: cover; }
+
+.username { font-size: 1.1rem; font-weight: 700; margin-top: 10px; }
+
+/* --- 5. Inputs & Buttons --- */
+input {
+    width: 100%;
+    background: rgba(0,0,0,0.3);
     border: 1px solid var(--border);
-    transition: border 0.3s ease;
+    border-radius: 18px;
+    color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 1rem;
+    text-align: center;
+    letter-spacing: 3px;
 }
 
-#passphrase:focus {
-    border-color: var(--accent);
-}
-
-/* Unlock Button */
-#unlock-btn {
+.send-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 50px;
     background: var(--accent);
     color: white;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
 }
 
-/* Inbox & Message View Layouts */
-#inbox-view {
-    width: 100%;
-    max-width: 450px;
-    margin-top: 20px;
+.send-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30, 118, 138, 0.4); }
+
+/* --- 6. Inbox List --- */
+.msg-bubble {
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: left;
+    padding: 20px;
+    margin-top: 15px;
 }
 
-.back-btn-alt {
-    margin-top: 20px;
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-    border: 1px solid var(--border) !important;
-}
+.msg-bubble:hover { transform: scale(1.02); background: rgba(255,255,255,0.15); }
 
-/* Animation for smooth entry */
+/* --- 7. Animations --- */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
