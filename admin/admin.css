@@ -7,7 +7,7 @@ body {
     justify-content: center; /* Vertical center */
     align-items: center;     /* Horizontal center */
     min-height: 100vh;
-    margin: 0;
+    margin: 10;
     padding: 20px;
 }
 
