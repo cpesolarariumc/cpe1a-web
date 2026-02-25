@@ -1,1 +1,62 @@
+/* --- Admin Specific Styles --- */
 
+/* Ensures the body centers the card perfectly on the screen */
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical center */
+    align-items: center;     /* Horizontal center */
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* The Identity Check Card positioning */
+#auth-box {
+    margin-top: 2vh; /* Slight nudge for visual balance */
+    width: 100%;
+    max-width: 400px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Secret Key Input */
+#passphrase {
+    text-align: center;
+    letter-spacing: 4px; 
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    transition: border 0.3s ease;
+}
+
+#passphrase:focus {
+    border-color: var(--accent);
+}
+
+/* Unlock Button */
+#unlock-btn {
+    background: var(--accent);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+/* Inbox & Message View Layouts */
+#inbox-view {
+    width: 100%;
+    max-width: 450px;
+    margin-top: 20px;
+}
+
+.back-btn-alt {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid var(--border) !important;
+}
+
+/* Animation for smooth entry */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
