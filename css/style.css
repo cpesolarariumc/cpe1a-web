@@ -121,7 +121,7 @@ body::before {
 .fb:hover { background: #1877F2 !important; }
 .ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; }
 
-/* --- 5. Forms & Inbox (NGL) --- */
+/* --- 5. Forms & Inbox (NGL/Admin) --- */
 textarea, input {
     width: 100%;
     background: rgba(0,0,0,0.2);
@@ -132,6 +132,12 @@ textarea, input {
     margin-bottom: 15px;
     outline: none;
     font-size: 1rem;
+}
+
+textarea {
+    resize: none; /* Prevents the user from dragging the corner */
+    min-height: 100px; /* Gives it a good starting size */
+    overflow-y: hidden; /* Hides the scrollbar during auto-expand */
 }
 
 .send-btn {
@@ -200,5 +206,6 @@ textarea, input {
     from { opacity: 0; transform: scale(0.9) translateY(20px); }
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
+
 
 
