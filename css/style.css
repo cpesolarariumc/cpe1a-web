@@ -54,7 +54,7 @@ body {
 /* --- 3. Profile & Avatar --- */
 .profile-section {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .avatar-link {
@@ -83,12 +83,12 @@ body {
     display: flex;
     gap: 15px;
     justify-content: center;
-    margin-top: 15px;
+    margin: 10px 0;
 }
 
 .social-btn {
     width: 45px;
-    height: 45px;
+    height: 40px;
     border-radius: 50%;
     background: var(--glass);
     border: 1px solid var(--border);
@@ -99,6 +99,7 @@ body {
     text-decoration: none !important;
     font-size: 1.2rem;
     transition: 0.3s;
+    
 }
 
 .social-btn:hover { transform: translateY(-3px); }
