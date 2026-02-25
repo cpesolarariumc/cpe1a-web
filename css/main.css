@@ -36,7 +36,7 @@ body {
     display: flex;
     gap: 15px;
     justify-content: center;
-    margin-bottom: 25px;
+    margin: 10px 0;
 }
 .social-btn {
     width: 45px;
@@ -110,7 +110,7 @@ body {
 
 /* Quote Display Area */
 .quote-container {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 25px;
     width: 100%;
     max-width: 500px;
