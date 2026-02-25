@@ -23,8 +23,8 @@ body {
     background: #0f0c29; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers vertically */
-    align-items: center;     /* Centers horizontally */
+    justify-content: center; /* Vertical Center for Identity Check */
+    align-items: center;     /* Horizontal Center */
     overflow-x: hidden;
 }
 
@@ -64,6 +64,7 @@ body::before {
     padding: 30px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     text-align: center;
+    margin-bottom: 15px;
 }
 
 /* Positioning fix for Identity Check */
@@ -85,13 +86,12 @@ body::before {
 }
 
 .avatar-container img { width: 100%; height: 100%; object-fit: cover; }
-
-.username { font-size: 1.1rem; font-weight: 700; margin-top: 10px; }
+.username { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; text-align: center; margin-bottom: 15px; }
 
 /* --- 5. Inputs & Buttons --- */
 input {
     width: 100%;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.2);
     border: 1px solid var(--border);
     border-radius: 18px;
     color: white;
@@ -100,7 +100,6 @@ input {
     outline: none;
     font-size: 1rem;
     text-align: center;
-    letter-spacing: 3px;
 }
 
 .send-btn {
@@ -113,24 +112,75 @@ input {
     cursor: pointer;
     border: none;
     transition: 0.3s;
-    text-transform: uppercase;
 }
 
 .send-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30, 118, 138, 0.4); }
 
-/* --- 6. Inbox List --- */
+/* --- 6. Inbox Specific Styles (The requested part) --- */
 .msg-bubble {
     cursor: pointer;
     transition: 0.3s;
     text-align: left;
     padding: 20px;
-    margin-top: 15px;
 }
 
-.msg-bubble:hover { transform: scale(1.02); background: rgba(255,255,255,0.15); }
+.msg-bubble:hover { 
+    transform: scale(1.02); 
+    background: rgba(255,255,255,0.15); 
+}
 
-/* --- 7. Animations --- */
+/* --- 7. Story View (Full Message View) --- */
+.story-view {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.story-card {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    background: var(--periwinkle);
+    border-radius: 35px;
+    padding: 60px 25px 30px 25px;
+    color: #1a1a2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+.story-avatar {
+    position: absolute;
+    top: -40px;
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    border: 5px solid #1a1a2e;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
+}
+
+.back-btn-alt {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid var(--border) !important;
+}
+
+/* --- 8. Animations --- */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popUp {
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
