@@ -4,17 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Inbox | CPE 1-A</title>
+    
     <link rel="stylesheet" href="https://www.cpe1a-hub.fun/css/style.css">
+    <link rel="stylesheet" href="css/admin.css"> 
     <link rel="icon" type="image/jpg" href="https://www.cpe1a-hub.fun/images/1Alogo.png">
 </head>
 <body>
+
     <div class="container">
         <div id="auth-box" class="glass-card">
             <div class="avatar-container">
                 <img src="https://www.cpe1a-hub.fun/images/1A.jpg" alt="CPE 1-A Icon">
             </div>
             <h2 style="margin-bottom: 5px;">Identity Check</h2>
-            <p style="opacity: 0.6; font-size: 0.85rem; margin-bottom: 15px;">Secure Database Verification</p>
+            <p style="opacity: 0.7; font-size: 0.85rem; margin-bottom: 20px;">Secure Database Verification</p>
+            
             <input type="password" id="passphrase" placeholder="Secret Key">
             <button id="unlock-btn" class="send-btn">Unlock Inbox</button>
         </div>
@@ -34,9 +38,9 @@
                 <div class="story-avatar">
                     <img src="https://www.cpe1a-hub.fun/images/1A.jpg" alt="Icon" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                 </div> 
-                <p id="focus-text"></p>
+                <p id="focus-text" style="line-height: 1.6; font-size: 1.1rem;"></p>
             </div>
-            <div class="story-controls">
+            <div class="story-controls" style="width: 100%; max-width: 400px;">
                 <button id="back-btn" class="send-btn back-btn-alt">← Back to Inbox</button>
             </div>
         </div>
@@ -45,7 +49,6 @@
     <script type="module">
         import { firebaseConfig } from 'https://www.cpe1a-hub.fun/scripts/config.js';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        // Use initializeFirestore for the connection fix
         import { 
             initializeFirestore, 
             doc, 
@@ -56,20 +59,15 @@
             onSnapshot 
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-
-        // FIX: Force Long Polling to prevent "Connection Failed" errors
-        const db = initializeFirestore(app, {
-            experimentalForceLongPolling: true,
-        });
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
 
         const unlockBtn = document.getElementById('unlock-btn');
         const passInput = document.getElementById('passphrase');
 
         unlockBtn.addEventListener('click', async () => {
             const inputPass = passInput.value;
-            if (!inputPass) return alert("Please enter a key.");
+            if (!inputPass) return;
 
             unlockBtn.innerText = "Verifying...";
             unlockBtn.disabled = true;
@@ -78,30 +76,18 @@
                 const docRef = doc(db, "secrets", "admin_auth");
                 const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    const dbPass = data.password;
-
-                    // Support for both a single string or an array of passwords
-                    const isAuthorized = Array.isArray(dbPass) 
-                        ? dbPass.includes(inputPass) 
-                        : inputPass === dbPass;
-
-                    if (isAuthorized) {
+                if (docSnap.exists() && (Array.isArray(docSnap.data().password) 
+                    ? docSnap.data().password.includes(inputPass) 
+                    : inputPass === docSnap.data().password)) {
                         document.getElementById('auth-box').style.display = 'none';
                         document.getElementById('inbox-view').style.display = 'block';
                         startListening();
-                    } else {
-                        alert("Access Denied: The Barrier remains intact.");
-                        resetBtn();
-                    }
                 } else {
-                    alert("Error: Auth document not found in Database.");
+                    alert("Access Denied.");
                     resetBtn();
                 }
             } catch (error) {
-                console.error("Auth Error:", error);
-                alert("Connection Error. Check your Firestore Rules or Internet.");
+                alert("Connection Error.");
                 resetBtn();
             }
         });
@@ -116,42 +102,28 @@
             const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
             onSnapshot(q, (snapshot) => {
                 const list = document.getElementById('message-list');
-                list.innerHTML = "";
-                
-                if (snapshot.empty) {
-                    list.innerHTML = "<p style='opacity:0.5; text-align:center; padding: 20px;'>The void is silent.</p>";
-                }
+                list.innerHTML = snapshot.empty ? "<p style='opacity:0.5; text-align:center;'>The void is silent.</p>" : "";
 
                 snapshot.forEach((msgDoc) => {
                     const data = msgDoc.data();
                     const card = document.createElement('div');
                     card.className = 'msg-bubble glass-card';
-                    
                     let preview = data.content || "";
-                    if(preview.length > 35) preview = preview.substring(0, 35) + "...";
-                    
-                    card.innerHTML = `<p>${preview}</p>`;
-                    
-                    card.addEventListener('click', () => {
+                    card.innerHTML = `<p>${preview.length > 35 ? preview.substring(0, 35) + "..." : preview}</p>`;
+                    card.onclick = () => {
                         document.getElementById('inbox-view').style.display = 'none';
                         document.getElementById('story-view').style.display = 'flex';
                         document.getElementById('focus-text').innerText = data.content;
-                    });
-                    
+                    };
                     list.appendChild(card);
                 });
             });
         }
 
-        document.getElementById('back-btn').addEventListener('click', () => {
+        document.getElementById('back-btn').onclick = () => {
             document.getElementById('story-view').style.display = 'none';
             document.getElementById('inbox-view').style.display = 'block';
-        });
+        };
     </script>
 </body>
 </html>
-
-
-
-
-
