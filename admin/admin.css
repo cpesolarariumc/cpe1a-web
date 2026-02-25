@@ -164,7 +164,7 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(105, 198, 219, 0.568);
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
 }
 
 .back-btn-alt {
