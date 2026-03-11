@@ -207,5 +207,68 @@ textarea {
     to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+.visual-hide {
+    position: absolute;
+    left: -5000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+:root {
+    --bg-gradient: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #36656f);
+    --glass: rgba(255, 255, 255, 0.1);
+    --border: rgba(255, 255, 255, 0.2);
+    --accent: #1e768a;
+}
+
+#memories-auth {
+    display: none; 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.85); 
+    z-index: 10000; 
+    backdrop-filter: blur(12px); 
+    align-items: center; 
+    justify-content: center;
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+.cancel-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.cancel-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+    opacity: 1;
+}
+
+#memories-auth .glass-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 
