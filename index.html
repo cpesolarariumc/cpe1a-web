@@ -52,8 +52,7 @@
                 <h3>Digital Yearbook</h3>
                 <p>Profiles of our batchmates.</p>
             </a>
-
-            <a href="https://drive.google.com/drive/folders/1mXC248-f8-N6E_t86hkkPb_dOWsNrqwW?usp=sharing" class="hub-card">
+            <a href="javascript:void(0);" onclick="openMemoriesAuth()" class="hub-card">
                 <span class="hub-icon">📸</span>
                 <h3>Memories</h3>
                 <p>Relive our best moments together.</p>
@@ -65,8 +64,32 @@
         </footer>
     </div>
 
+    <div id="memories-auth" class="story-view" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; backdrop-filter: blur(12px); align-items: center; justify-content: center;">
+        <div class="glass-card" style="width: 90%; max-width: 380px; padding: 40px 20px;">
+            <div class="avatar-container">
+                <img src="https://www.cpe1a-hub.fun/images/1A.jpg" alt="Logo">
+            </div>
+            <h2 style="margin-top: 10px;">Memories Vault</h2>
+            <p style="opacity: 0.7; font-size: 0.85rem; margin-bottom: 20px;">Enter the Class Key to view G-Drive</p>
+            
+            <input type="password" id="mem-pass" placeholder="Secret Key" style="text-align: center; letter-spacing: 2px;">
+            <button id="mem-unlock-btn" class="send-btn" style="color: white;">Unlock & Redirect</button>
+            
+            <button onclick="closeMemoriesAuth()" style="background: none; border: none; color: white; margin-top: 15px; cursor: pointer; opacity: 0.5; font-size: 0.8rem;">Cancel</button>
+        </div>
+    </div>
+
     <script type="module">
+        import { firebaseConfig } from 'https://www.cpe1a-hub.fun/scripts/config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { initializeFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { classQuotes } from 'https://www.cpe1a-hub.fun/scripts/quotes.js';
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = initializeFirestore(app, { experimentalForceLongPolling: true });
+
+        // --- Quote Logic ---
         function updateQuote() {
             const textEl = document.getElementById('quote-text');
             const authorEl = document.getElementById('quote-author');
@@ -81,6 +104,56 @@
         }
         updateQuote();
         setInterval(updateQuote, 15000);
+
+        // --- Memories Auth Logic ---
+        window.openMemoriesAuth = function() {
+            document.getElementById('memories-auth').style.display = 'flex';
+            document.getElementById('mem-pass').focus();
+        };
+
+        window.closeMemoriesAuth = function() {
+            document.getElementById('memories-auth').style.display = 'none';
+            document.getElementById('mem-pass').value = "";
+        };
+
+        const unlockBtn = document.getElementById('mem-unlock-btn');
+        unlockBtn.addEventListener('click', async () => {
+            const inputPass = document.getElementById('mem-pass').value;
+            if (!inputPass) return;
+
+            unlockBtn.innerText = "Verifying...";
+            unlockBtn.disabled = true;
+
+            try {
+            
+                const docRef = doc(db, "secrets", "admin_auth"); 
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const dbPass = docSnap.data().password;
+                    const isAuth = Array.isArray(dbPass) ? dbPass.includes(inputPass) : inputPass === dbPass;
+
+                    if (isAuth) {
+                    
+                        const driveLink = docSnap.data().drive_url; 
+                        window.location.href = driveLink;
+                    } else {
+                        alert("Access Denied: The Key is incorrect.");
+                        resetAuth();
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+                alert("Connection Error. Try again.");
+                resetAuth();
+            }
+        });
+
+        function resetAuth() {
+            unlockBtn.innerText = "Unlock & Redirect";
+            unlockBtn.disabled = false;
+            document.getElementById('mem-pass').value = "";
+        }
     </script>
 </body>
 </html>
