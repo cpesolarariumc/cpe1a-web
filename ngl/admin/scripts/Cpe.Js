@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Importing configuration from your external file
-import { firebaseConfig } from "./config.js";
+import { firebaseConfig } from "./next.config.js";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -105,4 +105,5 @@ function showSingleMessage(id, text) {
     document.getElementById('focus-text').innerText = text;
 
 }
+
 
