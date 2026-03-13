@@ -1,4 +1,4 @@
-import { firebaseConfig } from 'https://www.cpe1a-hub.fun/scripts/config.js';
+import { firebaseConfig } from 'https://www.cpe1a-hub.fun/scripts/next.config.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { initializeFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { classQuotes } from 'https://www.cpe1a-hub.fun/scripts/quotes.js';
