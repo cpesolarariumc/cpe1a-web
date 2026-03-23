@@ -1,2 +1,3 @@
+# Ignore the following files in the admin/scripts directory
 config.js
 Cpe.js
